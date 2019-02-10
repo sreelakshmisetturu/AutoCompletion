@@ -99,19 +99,34 @@ public class Trie {
 
 		int i = 0;
 		TrieNode[] current = root;
+		List<String> result = new ArrayList<String>();
 		while (i < prefix.length()) {
 			char ch = Character.toLowerCase(prefix.charAt(i));
 			int index = ch - 'a';
 			if (current[index] != null) {
+				if (i == prefix.length() - 1 && current[index].getIsend()) {
+					result.add(prefix);				}
 				current = current[index].getChildren();
 				i++;
 			}
 		}
-		return traverse(prefix, new ArrayList<String>());
+		return traverse(prefix,result,current);
 	}
 
-	private List<String> traverse(String prefix, ArrayList<String> result){
-		if()
+	private List<String> traverse(String prefix, List<String> result,TrieNode[] current){
+		for(int i=0;i<current.length;i++){
+			TrieNode node = current[i];
+			if(node!=null){
+				prefix=prefix+Character.toString(node.getLetter());
+				if(node.getIsend()){
+					result.add(prefix);
+				}
+				traverse(prefix,result,node.getChildren());
+				prefix = prefix.substring(0, prefix.length()-1);
+			}
+		}
+		
+		return result;
 	}
 
 	public TrieNode[] getRoot() {
