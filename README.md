@@ -15,6 +15,7 @@ trie.search("app");     // returns true
 trie.getSuggestions("app");   // returns app,apple
 
 Scope:
+
 1)the word should comprise of only A-Z and a-z
 
 2)No spaces between words
